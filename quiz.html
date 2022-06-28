@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+    <title>Quiz do Senai</title>
+
+</head>
+
+
+<body>
+
+    <style>
+        h1{
+            text-align: center;
+        }
+
+        h2{
+            background-color: darkolivegreen;
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+
+        h3{
+            background-color: gray;
+            padding: 15px;
+            border-radius: 12px;
+
+        }
+
+        h3:hover{
+            cursor: pointer;
+            background-color: rgb(204, 204, 204);
+        }
+
+        h3 span{
+            font-size: bold;
+
+        }
+    </style>
+
+    <div class="container">
+
+        <h1>Quiz do Senai</h1>
+
+        <h2>Pergunta?</h2>
+
+        <div class="resposta">
+            <h3>
+
+            <span>A</span>
+            Resposta
+            </h3>
+
+            <h3>
+                <span>B</span>
+                Resposta
+                </h3>
+
+                <h3>
+                    <span>C</span>
+                    Resposta
+                    </h3>
+
+                    <h3>
+                        <span>D</span>
+                        Resposta
+                        </h3>
+
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('h3')[0].addEventListener('click',()=>{verificarResposta()});
+
+        function verificarResposta() {
+            document.querySelectorAll('h3')[0].style.background = "red";
+            document.querySelectorAll('h3')[1].style.background = "green";
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    
+</body>
+
+
+
+
+
+</html>
