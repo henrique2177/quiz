@@ -43,6 +43,7 @@
             font-size: bold;
 
         }
+
     </style>
 
     <div class="container">
@@ -77,12 +78,38 @@
     </div>
 
     <script>
-        document.querySelectorAll('h3')[0].addEventListener('click',()=>{verificarResposta()});
 
-        function verificarResposta() {
-            document.querySelectorAll('h3')[0].style.background = "red";
-            document.querySelectorAll('h3')[1].style.background = "green";
+        document.querySelectorAll('h3')[0].addEventListener('click',()=>{verificarResposta()}); //selecionando todos elementos
+        //do h3 na posição 0 e incluindo a função verificarResposta
+
+        function verificarResposta(i) {// função verificarResposta
+
+            if(quiz.ponto >= 0) return; // if para as outras opções não ficarem clicaveis
+
+            document.querySelectorAll('h3')[i].style.background = "red"; // variavel i para errado
+            document.querySelectorAll('h3')[quiz.correta].style.background = "green"; //correta quiz -> correta = verde
+
+            if (i == quiz.correta) {  //condição para pontos, se quiz.ponto=1
+                quiz.ponto = 1;       // senão quiz.ponto=0   
+            }else{
+                quiz.ponto = 0;
+            }
         }
+
+        let quiz = { //Json para quiz, pergunta, resposta e correta.
+            pergunta:"Qual foi o último ano que o Brasil ganhou a copa?",
+            respostas: ["1998", "2006","2002","2018"],
+            correta:2
+        }
+
+        document.querySelector('h2').innerHTML = quiz.pergunta; // coloca a pergunta automaticamente no h2
+
+        for (let i = 0; i < 4; i++) {//i escrever as respostas automaticamente
+            document.querySelectorAll('h3')[i].innerHTML = quiz.respostas[i]; // valor que ta na variavel i 
+            let x = i;
+            document.querySelectorAll('h3')[i].addEventListener('click',()=>{verificarResposta(x)}); //para todos os elementos ficarem clicaveis
+        }
+       
     </script>
 
 
