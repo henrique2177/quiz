@@ -75,54 +75,72 @@
                         </h3>
 
         </div>
+        <div class="btn btn-success" onclick="next()">
+            next
+        </div>
     </div>
 
     <script>
 
-        document.querySelectorAll('h3')[0].addEventListener('click',()=>{verificarResposta()}); //selecionando todos elementos
-        //do h3 na posição 0 e incluindo a função verificarResposta
+        function verificarResposta(i) {
+            if (quiz.ponto >= 0) return;
 
-        function verificarResposta(i) {// função verificarResposta
-
-            if(quiz.ponto >= 0) return; // if para as outras opções não ficarem clicaveis
-
-            document.querySelectorAll('h3')[i].style.background = "red"; // variavel i para errado
-            document.querySelectorAll('h3')[quiz.correta].style.background = "green"; //correta quiz -> correta = verde
-
-            if (i == quiz.correta) {  //condição para pontos, se quiz.ponto=1
-                quiz.ponto = 1;       // senão quiz.ponto=0   
-            }else{
+            document.querySelectorAll('h3')[i].style.backgroundColor = '#ff5555';
+            document.querySelectorAll('h3')[quiz.correta].style.backgroundColor = '#56c856';
+            if (i == quiz.correta) {
+                quiz.ponto = 1;
+            } else {
                 quiz.ponto = 0;
             }
         }
 
-        let quiz = { //Json para quiz, pergunta, resposta e correta.
-            pergunta:"Qual foi o último ano que o Brasil ganhou a copa?",
-            respostas: ["1998", "2006","2002","2018"],
-            correta:2
-        }
-
-        document.querySelector('h2').innerHTML = quiz.pergunta; // coloca a pergunta automaticamente no h2
-
-        for (let i = 0; i < 4; i++) {//i escrever as respostas automaticamente
-            document.querySelectorAll('h3')[i].innerHTML = quiz.respostas[i]; // valor que ta na variavel i 
-            let x = i;
-            document.querySelectorAll('h3')[i].addEventListener('click',()=>{verificarResposta(x)}); //para todos os elementos ficarem clicaveis
-        }
+        let lsPergunta = [
+            {
+                pergunta: "Qual foi o ultimo ano que o BR ganhou a copa?",
+                respostas: ["1970", "2002", "1962", "1994"],
+                correta: 1
+            },
+            {
+                pergunta: "Qual o nome do último presidente dos Estados Unidos?",
+                respostas: ["George Bush", "Donald Trump", "Joe Biden", "Dwight Eisenhower"],
+                correta: 2
+            },
+            {
+                pergunta: "Qual é o maior planeta do sistema solar?",
+                respostas: ["Júpiter", "Saturno", "Urano", "Netuno"],
+                correta: 0
+            }
+        ];
        
+        let quiz = {};
+        function carregarQuiz(nPergunta) {
+            quiz = lsPergunta[nPergunta];
+            document.querySelector('h2').innerHTML = quiz.pergunta;
+            for (let i = 0; i < 4; i++) {
+                document.querySelectorAll('h3')[i].style.backgroundColor = '#cccccc';
+                document.querySelectorAll('h3')[i].innerHTML = quiz.respostas[i];
+                let x = i;
+                document.querySelectorAll('h3')[i].addEventListener(
+                    'click', () => { verificarResposta(x) });
+            }
+        }
+        let quizAtual = 0;
+        carregarQuiz(quizAtual);
+        function next() {
+            // console.log(quizAtual);
+            // console.log(lsPergunta.length-1);
+            // console.log(quizAtual == lsPergunta.length-1);
+            if (quiz.ponto == undefined) {
+                alert('Antes de ir para o próxima pergunta responda essa!');
+                return;
+            }
+            if (quizAtual == lsPergunta.length - 1) return;
+            carregarQuiz(++quizAtual);
+        }
+
     </script>
 
 
-
-
-
-
-
-
-
-
-
-    
 </body>
 
 
