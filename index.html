@@ -1,63 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-	<title>Quiz</title>
+    <title>Quiz</title>
 
     <style>
-
-        body{
-            font-size: 1.3em;
-            font-weight: bold;
-        }
-        .pergunta{
-            font-size: 1.2em;
-            
-        }
-        h1{
+        h2 {
             text-align: center;
         }
-
-       form{
-        margin-left: 7em;
-        
-       }
-       form input{
-
-            padding-right: 45em;
-            padding-top: 1.2em;
-            margin-top: 2em;
-          
-           
-                       
-        }
-
-        .container{
-
-            margin-top: 2em;
-            margin-left: 5em;
-            font-size: 1.5em;
-        }
-
-        span{
-
-            margin-right: 10px;
-        }
-        
-
-       .btn{
-            margin-left: 190px;
-            margin-top: 20px;
-            padding: 8px 14px;
-            color: black;
-           
-        }
-
-             
     </style>
 
 
@@ -66,71 +21,100 @@
 
 <body>
 
-	<h1> Gerenciar Perguntas do Quiz</h1>
-<div>
-    <form class="pergunta">
-        <label for="pergunta">Pergunta:</label>
-        <input type="text" id="pergunta" value="1 *1">
-    </br>
-        <label for="opc1">Opção 1:</label>
-        <input type="text" id="opc1">
-    </br>
-    <label for="opc1">Opção 2:</label>
-    <input type="text" id="opc1">
-</br>
-<label for="opc1">Opção 3:</label>
-<input type="text" id="opc1">
-</br>
-<label for="opc1">Opção 4:</label>
-<input type="text" id="opc1">
-<br>
-</div>
 
-<div class="container">
-    <span>Opção correta:</span>
-    <form >
-        <label class="radio-inline">
-    <input type="radio" id="opc1"  value="opc1" >Opção 1
-</label>
-    <label class="radio-inline">
-    <input type="radio" id="opc1"  value="opc1">Opção 2
-</label>
-    <label class="radio-inline">
-    <input type="radio" id="opc1" value="opc1" >Opção 3
-</label>
-    <label class="radio-inline">
-    <input type="radio" id="opc1" value="opc1">Opção 4
-</label>
-    </form>
+    <div class="container">
+        <h2>Gerenciar Perguntas Quiz</h2>
+
     </div>
-<div>
-    <button type="submit" onclick="gravar()" class="btn btn-success">Enviar</button>
-</div>
-
-    </form>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pergunta">Pergunta:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="pergunta" placeholder="" name="pergunta" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao01">Opção 01:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao01" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao02">Opção 02:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao02" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao03">Opção 03:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao03" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao04">Opção 04:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao04" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="">Opção Correta:</label>
+            <div class="col-sm-8">
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="1">Opção 01
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="2">Opção 02
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="3">Opção 03
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="4">Opção 04
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" onclick="gravar()" class="btn btn-default">Gravar</button>
+                <button type="submit" onclick="limparForm()" class="btn btn-default">Novo</button>
+            </div>
+        </div>
+    </div>
+    </div>
     <script>
-         let quiz = {};
-        function gravar(){
-            let lsInput = document.querySelectorAll('input');
-            let quiz = {respostas:[]};
-            for (i in lsInput) {
-              if(i == 0){
-                  quiz.pergunta = lsInput[i].value;
+
+
+        function gravar() {
+            let lista = document.querySelectorAll('input');
+            let quiz = { respostas: [] };
+            for (i in lista) {
+                // console.log(lista[i].value);
+                if (i == 0) {
+                    quiz.pergunta = lista[i].value;
                 }
-            }
-            if(i >= 1 && i <=4){
-                quiz.respostas[i-1] = lista[i].value;
-            }
-            if (i>=5 && i <=8) {
-                console.log('${i-5} ${lista[i].checked}');
-                if(lista[i].checked){
-                    quiz.correta = i - 5;
+                if (i >= 1 && i <= 4) {
+                    quiz.respostas[i - 1] = lista[i].value;
                 }
+                if (i >= 5 && i <= 8) {
+                    // console.log(`${i-5} ${lista[i].checked}`)
+                    if (lista[i].checked) {
+                        quiz.correta = i - 5;
+                    }
+                }
+
+
             }
-        } console.log(quiz);
-        
+
+
+            let baseQuiz = localStorage.getItem('baseQuiz');
+            baseQuiz = JSON.parse(baseQuiz);
+            baseQuiz.push(quiz);
+            localStorage.setItem('baseQuiz', JSON.stringify(baseQuiz));
+        }
+
     </script>
-  
+
 </body>
 
 </html>
