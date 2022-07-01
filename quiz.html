@@ -55,9 +55,14 @@
             h3 span {
                 font-weight: bolder;
             }
+
+            #next{
+                display: inline-block;
+                margin-bottom: 5px;
+            }
         </style>
 
-        <div class="container">
+        <div class="container ">
             <h1>Quiz do SENAI</h1>
             <h2>
                 Pergunta?
@@ -78,11 +83,19 @@
                 <span>D</span>
                 Resposta
             </h3>
-            <button class="btn btn-success" onclick="next()">
-                Next
-            </button>
+            <div class="btn btn-success col-sm-12" id="next" onclick="next()">
+                Proximo
+            </div>
+            <div class="btn btn-primary col-sm-12 " id="reiniciar" onclick="reiniciar()">
+                reiniciar
+            </div>
         </div>
         <script>
+
+            let placar = {
+                acertos:0,
+                erros:0
+            }
 
             function verificarResposta(i) {
                 if (quiz.ponto >= 0) return;
@@ -91,8 +104,10 @@
                 document.querySelectorAll('h3')[quiz.correta].style.backgroundColor = '#56c856';
                 if (i == quiz.correta) {
                     quiz.ponto = 1;
+                   placar.acertos  += 1;
                 } else {
                     quiz.ponto = 0;
+                    placar.erros  += 1;
                 }
             }
 
@@ -119,8 +134,9 @@
                 localStorage.setItem('baseQuiz', JSON.stringify(lsPergunta));
             } else {
                 lsPergunta = JSON.parse(baseQuiz);
+                
             }
-
+          
             let quiz = {};
             function carregarQuiz(nPergunta) {
                 quiz = lsPergunta[nPergunta];
@@ -141,13 +157,47 @@
                 // console.log(quizAtual == lsPergunta.length-1);
                 if (quiz.ponto == undefined) {
                     alert('Antes de ir para o próxima pergunta responda essa!');
-                    return;
+                return;
                 }
-                if (quizAtual == lsPergunta.length - 1) return;
+                if (quizAtual == lsPergunta.length - 1){
+                    fimQuiz();
+                return;
+                }
+
                 carregarQuiz(++quizAtual);
+
             }
 
+            function fimQuiz(){
+                document.querySelector('h2').innerHTML = 'Resultado do quiz';
+                document.querySelectorAll('h3')[0].innerHTML = `Acertos: ${placar.acertos}`;
+                document.querySelectorAll('h3')[1].innerHTML = `Erros: ${placar.erros}`;
 
+                document.querySelectorAll('h3')[0].style.backgroundColor = '#56c856';
+                document.querySelectorAll('h3')[1].style.backgroundColor = '#ff5555';
+
+                document.querySelectorAll('h3')[2].style.display = 'none';
+                document.querySelectorAll('h3')[3].style.display = 'none';
+
+                document.querySelector('#next').style.display = 'none';
+                document.querySelector('#reiniciar').style.display = 'block';
+                
+                
+            }
+
+            document.querySelector('#reiniciar').style.display = 'none';
+            
+
+
+            function reiniciar(){
+                let resp = confirm('Deseja Reiniciar?');
+                if(resp){
+                    window.location.href="quiz.html"
+                }
+
+            }
+
+        
 
         </script>
 
