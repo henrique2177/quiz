@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <title>Quiz</title>
+
+    <style>
+        h2 {
+            text-align: center;
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+        <h2>Gerenciar Perguntas Quiz</h2>
+        <div id="alerta" class="alert col-sm-offset-2 ">
+    </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pergunta">Pergunta:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="pergunta" placeholder="" name="pergunta" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao01">Opção 01:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao01" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao02">Opção 02:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao02" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao03">Opção 03:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao03" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="opcao04">Opção 04:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="opcao04" placeholder="" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="">Opção Correta:</label>
+            <div class="col-sm-8">
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="1">Opção 01
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="2">Opção 02
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="3">Opção 03
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="opcaoCorreta" value="4">Opção 04
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" onclick="gravar()" class="btn btn-default">Gravar</button>
+                <button type="submit" onclick="limparForm()" class="btn btn-default">Novo</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+
+
+        function gravar() {
+            let lista = document.querySelectorAll('input');
+            let quiz = { respostas: [] };
+            for (i in lista) {
+                // console.log(lista[i].value);
+                if (i == 0) {
+                    quiz.pergunta = lista[i].value;
+                }
+                if (i >= 1 && i <= 4) {
+                    quiz.respostas[i - 1] = lista[i].value;
+                    if (lista[i].value != "") {
+                        quiz.respostas[i - 1] = lista[i].value;
+                    }
+                }
+                if (i >= 5 && i <= 8) {
+                    // console.log(`${i-5} ${lista[i].checked}`)
+                    if (lista[i].checked) {
+                        quiz.correta = i - 5;
+                    }
+                }
+
+
+            }
+
+            //verificar se o objeto quiz esta devidamente preechido
+
+            let msg = "";
+
+            if (quiz.pergunta == "") {
+               msg +=('necessario preencher a pergunta');
+            }
+            //validar se todas as respostas foram preenchidas
+            if (quiz.respostas.length < 4) {
+                msg +=('necessario preencher todas as respostas')
+            }
+            //validar se a opçcao correta foi selecionada
+            if (quiz.correta == undefined) {
+                msg +=('necessario selecionar a opçao correta')
+            }
+
+            document.querySelector('#alerta');
+
+            if (msg != "") {    
+                alerta.innerHTML = msg;
+                alerta.classList.add('alert-danger')
+                return;
+            }else{
+                alerta.innerHTML = 'novo item do quiz adicionado';
+                alerta.classList.remove('alert-danger')
+                alerta.classList.add('alert-success')
+            }
+
+            let baseQuiz = localStorage.getItem('baseQuiz');
+            baseQuiz = JSON.parse(baseQuiz);
+            baseQuiz.push(quiz);
+            localStorage.setItem('baseQuiz', JSON.stringify(baseQuiz));
+        }
+
+        
+        function limparForm() {
+            let lista = document.querySelectorAll('input');
+            for (i in lista) {
+                if (i >= 0 && i <= 4) {
+                    lista[i].value = "";
+                }
+                if (i >= 5 && i <= 8) {
+                    lista[i].checked = false;
+                }
+                if (i >= 9) {
+                    lista[i].value = "";
+                }
+            }
+            //limparAlerta();
+        }
+
+        function limparAlerta() {
+            document.querySelector("#alerta").innerHTML = "";
+            document.querySelector("#alerta").classList.remove('alert-danger');
+            document.querySelector("#alerta").classList.remove('alert-success');
+        }
+    </script>
+
+</body>
+
+</html>

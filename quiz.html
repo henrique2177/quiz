@@ -138,7 +138,9 @@
             }
           
             let quiz = {};
-            function carregarQuiz(nPergunta) {
+             embaralharPerguntas() ;
+            function carregarQuiz(nPergunta){
+            embaralharRespostas(nPergunta)
                 quiz = lsPergunta[nPergunta];
                 document.querySelector('h2').innerHTML = quiz.pergunta;
                 for (let i = 0; i < 4; i++) {
@@ -192,13 +194,42 @@
             function reiniciar(){
                 let resp = confirm('Deseja Reiniciar?');
                 if(resp){
-                    window.location.href="quiz.html"
+                   // window.location.href="quiz.html"
+                   window.location.replace("");
                 }
 
             }
+            //embaralha as perguntas
+            function embaralharPerguntas() {
+                let listaTemporaria = [];
+                let cont = 0;
 
-        
+                 while (lsPergunta.length > 0) {
+                let numSorteado = Math.trunc(Math.random() * lsPergunta.length);
+                listaTemporaria[cont] = lsPergunta.splice(numSorteado,1)[0];
+                cont++;
+            }
+            lsPergunta = listaTemporaria;
+        }
 
+        function embaralharRespostas(nPergunta) {
+            let listaTemporaria = [];
+            let quiz = lsPergunta[nPergunta];
+            let cont = 0;
+            let lsRespostas = quiz.respostas;
+            let opcaoCorreta = lsRespostas[quiz.correta]
+
+            while (lsRespostas.length > 0) {
+                let numSorteado = Math.trunc(Math.random() * lsRespostas.length);
+                listaTemporaria[cont] = lsRespostas.splice(numSorteado,1)[0];
+               if (opcaoCorreta == listaTemporaria[cont]) {
+                   quiz.correta = cont;
+               }
+                cont++;
+        }   
+        lsPergunta[nPergunta].respostas = listaTemporaria;
+
+    }
         </script>
 
 
